@@ -100,6 +100,7 @@ class Firmware
       bool              labels            {false};               // same as categories?
       bool              modelsList        {false};               // depreciated?? - read yaml but not write check
 
+      std::string       bluetoothName     {"unknown"};
       CurvesDefn        curves;
       CustomScreensDefn customScreens;
       int               eepromSize        {0};
@@ -108,8 +109,6 @@ class Firmware
       Json::sizes_t     flightModes       {CPN_MAX_FLIGHT_MODES, FLIGHTMODE_NAME_LEN}; // rename to operatingModes
       Json::sizes_t     globalFuncs       {CPN_MAX_SPECIAL_FUNCTIONS, 0};
       Json::sizes_t     globalVars        {CPN_MAX_GVARS, GVAR_NAME_LEN};
-      int               hatsMode          {2};                                        // GeneralSettings::HATSMODE_SWITCHABLE
-      Json::range_t     inactivityTimer   {0, 0, 10};
       Json::sizes_t     inputs            {CPN_MAX_INPUTS, INPUT_NAME_LEN};
       bool              lcdToVideo        {false};
       Json::sizes_t     logicalSwitches   {CPN_MAX_LOGICAL_SWITCHES, 0};

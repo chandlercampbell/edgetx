@@ -133,25 +133,18 @@ static const StringTagMappingTable intModuleTypesLookupTable = {
     {std::to_string(MODULE_TYPE_FLYSKY_AFHDS2A),    "afhds2a"},
     {std::to_string(MODULE_TYPE_FLYSKY_AFHDS3),     "afhds3"},
     {std::to_string(MODULE_TYPE_GHOST),             "ghost"},
-    {std::to_string(MODULE_TYPE_LEMON_DSMP),        "lemon-dsmp"},
+    {std::to_string(MODULE_TYPE_LEMON_DSMP),        "lemondsmp"},
     {std::to_string(MODULE_TYPE_MULTIMODULE),       "multi"},
     {std::to_string(MODULE_TYPE_PPM),               "ppm"},
     {std::to_string(MODULE_TYPE_SBUS),              "sbus"},
-    {std::to_string(MODULE_TYPE_ISRM_PXX2),         "isrm-pxx2"},
-    {std::to_string(MODULE_TYPE_R9M_PXX1),          "r9m-pxx1"},
-    {std::to_string(MODULE_TYPE_R9M_PXX2),          "r9m-pxx2"},
-    {std::to_string(MODULE_TYPE_R9M_LITE_PXX1),     "r9m-lite-pxx1"},
-    {std::to_string(MODULE_TYPE_R9M_LITE_PXX2),     "r9m-lite-pxx2"},
-    {std::to_string(MODULE_TYPE_R9M_LITE_PRO_PXX2), "r9m-lite-pro-pxx1"},
-    {std::to_string(MODULE_TYPE_XJT_PXX1),          "xjt-pxx1"},
-    {std::to_string(MODULE_TYPE_XJT_LITE_PXX2),     "xjt-lite-pxx2"},
-};
-
-// not used for yaml
-static const StringTagMappingTable trainerModuleLookupTable = {
-    {std::to_string(Board::TR_MOD_TYPE_NONE), "none"},
-    {std::to_string(Board::TR_MOD_TYPE_CPPM), "cppm"},
-    {std::to_string(Board::TR_MOD_TYPE_SBUS), "sbus"},
+    {std::to_string(MODULE_TYPE_ISRM_PXX2),         "isrm"},
+    {std::to_string(MODULE_TYPE_R9M_PXX1),          "r9m"},
+    {std::to_string(MODULE_TYPE_R9M_PXX2),          "r9maccess"},
+    {std::to_string(MODULE_TYPE_R9M_LITE_PXX1),     "r9mlite"},
+    {std::to_string(MODULE_TYPE_R9M_LITE_PXX2),     "r9mliteaccess"},
+    {std::to_string(MODULE_TYPE_R9M_LITE_PRO_PXX2), "r9mliteproaccess"},
+    {std::to_string(MODULE_TYPE_XJT_PXX1),          "xjt"},
+    {std::to_string(MODULE_TYPE_XJT_LITE_PXX2),     "xjtlite"},
 };
 
 /*
@@ -230,9 +223,6 @@ int Board::getCapability(const Capability capability) const
   switch (capability) {
     case Capability::Air:
       return !m_hardware.surface;
-
-    case Capability::BackgroundVolumeDefault:
-      return m_hardware.backgroundVolume.dflt;
 
     case Capability::BacklightLevelMin:
       return m_hardware.backlight.min;
@@ -334,12 +324,12 @@ int Board::getCapability(const Capability capability) const
       return m_inputCnt.rtcbat;
 
     case Capability::HasSDCard:
-      return true;
+      return m_hardware.sdCard;
 
     case Capability::HasVBat:
       return m_inputCnt.vbat;
 
-    case Capability::Haptic:
+    case Capability::HasHaptic:
       return m_hardware.haptic;
 
     case Capability::HasAuxSerialMode:
@@ -373,7 +363,7 @@ int Board::getCapability(const Capability capability) const
       return m_hardware.hardwareAntennaSwitch;
 
     case Capability::HasIMU:
-      return m_hardware.imu;
+      return (getInputIndex("TILT_X", LVT_TAG) > -1 && getInputIndex("TILT_Y", LVT_TAG) > -1);
 
     case Capability::HasInternalGPS:
       return m_hardware.has_internal_gps;
@@ -401,7 +391,7 @@ int Board::getCapability(const Capability capability) const
       return m_hardware.status_led_pwm;
 
     case Capability::HasStickDeadZone:
-      return m_hardware.stickDeadZone;
+      return m_hardware.stickDeadZone.dflt;
 
     case Capability::HasSwitchableJack:
       return m_hardware.switchableJack;
@@ -413,10 +403,10 @@ int Board::getCapability(const Capability capability) const
       return m_hardware.trainer_jack_crossover;
 
     case Capability::HasTrainerModuleCPPM:
-      return m_hardware.trainerModule == Board::TR_MOD_TYPE_CPPM;
+      return m_hardware.trainerModuleExtCCPM;
 
     case Capability::HasTrainerModuleSBUS:
-      return m_hardware.trainerModule == Board::TR_MOD_TYPE_SBUS;
+      return m_hardware.trainerModuleExtSBUS;
 
     case Capability::HasVCPSerialMode:
       return m_hardware.vcpSerialMode;
@@ -461,7 +451,7 @@ int Board::getCapability(const Capability capability) const
       return m_hardware.contrast.max;
 
     case Capability::MaxVolume:
-      return m_hardware.speakerVolume.max;
+      return 23;
 
     case Capability::MinContrast:
       return m_hardware.contrast.min;
@@ -499,13 +489,10 @@ int Board::getCapability(const Capability capability) const
       return m_hardware.pwrButtonPress;
 
     case Capability::RotaryEncoderNavigation:
-      return m_hardware.rotaryEncNav;
+      return m_hardware.rotEncNav;
 
     case Capability::Sliders:
       return m_inputCnt.flexSliders;
-
-    case Capability::SpeakerVolumeDefault:
-      return m_hardware.speakerVolume.dflt;
 
     case Capability::SportMaxBaudRate:
       return m_hardware.sport_max_baudrate;
@@ -517,7 +504,7 @@ int Board::getCapability(const Capability capability) const
       return m_hardware.status_led_colors;
 
     case Capability::StickDeadZone:
-      return m_hardware.stickDeadZone;
+      return m_hardware.stickDeadZone.dflt;
 
     case Capability::Sticks:
       return m_inputCnt.sticks;
@@ -533,9 +520,6 @@ int Board::getCapability(const Capability capability) const
     case Capability::SwitchesPositions:
       return getCapability(Capability::Switches) * 3;
 
-    case Capability::WavVolumeDefault:
-      return m_hardware.wavVolume.dflt;
-
     default:
       qWarning() << "Warning: unknown capability:" << capability << "returned 0";
       return 0;
@@ -545,8 +529,6 @@ int Board::getCapability(const Capability capability) const
 QString Board::getCapabilityStr(const Capability capability) const
 {
   switch (capability) {
-    case Capability::BluetoothName:
-      return m_hardware.bluetoothName.c_str();
     case Capability::CPU:
       return m_hardware.cpu.c_str();
     case Capability::CPUType:
@@ -1390,7 +1372,7 @@ bool Board::loadDefinition(const QString & path)
 
   // keys not processed in iteration
   const QStringList skipKeys {"backlight", "basedOn", "comments", "hidden", "hwdefn",
-                              "modules", "name", "supported", "touch", "usb"};
+                              "modules", "name", "rotenc", "supported", "touch", "usb"};
 
   for (QJsonObject::const_iterator it = o.constBegin(); it != o.constEnd(); ++it) {
     //JSON_KEY_VAL(it);
@@ -1404,17 +1386,11 @@ bool Board::loadDefinition(const QString & path)
     else if (it.key() == "contrast")
       Json::loadRange(it, m_hardware.contrast);
 
-    else if (it.key() == "backgroundVolume")
-      Json::loadRange(it, m_hardware.backgroundVolume);
-
     else if (it.key() == "backlight")
       loadBacklight(it);
 
     else if (it.key() == "battery")
       loadBattery(it);
-
-    else if (it.key() == "bluetoothName")
-      m_hardware.bluetoothName = Json::valueStdString(it, m_hardware.bluetoothName);
 
     else if (it.key() == "chargeWhileOn")
       m_hardware.chargeWhileOn = Json::valueBool(it, m_hardware.chargeWhileOn);
@@ -1443,9 +1419,6 @@ bool Board::loadDefinition(const QString & path)
     else if (it.key() == "identity")
       loadIdentity(it);
 
-    else if (it.key() == "imu")
-      m_hardware.imu = true;
-
     else if (it.key() == "keys")
       loadKeys(it);
 
@@ -1458,14 +1431,14 @@ bool Board::loadDefinition(const QString & path)
     else if (it.key() == "pwrButtonPress")
       m_hardware.pwrButtonPress = Json::valueBool(it, m_hardware.pwrButtonPress);
 
-    else if (it.key() == "rotenc")
-      m_hardware.rotaryEncNav = true;
+    else if (it.key() == "rotEncNav")
+      m_hardware.rotEncNav = Json::valueBool(it, m_hardware.rotEncNav);
 
-    else if (it.key() == "speakerVolume")
-      Json::loadRange(it, m_hardware.speakerVolume);
+    else if (it.key() == "sdCard")
+      m_hardware.sdCard = Json::valueBool(it, m_hardware.sdCard);
 
     else if (it.key() == "stickDeadZone")
-      m_hardware.stickDeadZone = Json::valueBool(it, m_hardware.stickDeadZone);
+      Json::loadRange(it, m_hardware.stickDeadZone);
 
     else if (it.key() == "switchableJack")
       m_hardware.switchableJack = Json::valueBool(it, m_hardware.switchableJack);
@@ -1482,12 +1455,11 @@ bool Board::loadDefinition(const QString & path)
     else if (it.key() == "trainer")
       loadTrainer(it);
 
-    // not in hwdef trainer
-    else if (it.key() == "trainerModule") {
-      int idx = DataHelpers::getStringTagMappingIndex(trainerModuleLookupTable,
-                                                      Json::valueStdString(it).c_str());
-      m_hardware.trainerModule = idx > -1 ? idx : m_hardware.trainerModule;
-    }
+    else if (it.key() == "trainerModuleExtCCPM")
+      m_hardware.trainerModuleExtCCPM = Json::valueBool(it, m_hardware.trainerModuleExtCCPM);
+
+    else if (it.key() == "trainerModuleExtSBUS")
+      m_hardware.trainerModuleExtSBUS = Json::valueBool(it, m_hardware.trainerModuleExtSBUS);
 
     else if (it.key() == "trims")
       loadTrims(it);
@@ -1497,9 +1469,6 @@ bool Board::loadDefinition(const QString & path)
 
     else if (it.key() == "voiceControl")
       m_hardware.voiceControl = Json::valueBool(it, m_hardware.voiceControl);
-
-    else if (it.key() == "wavVolume")
-      Json::loadRange(it, m_hardware.wavVolume);
 
     else
       JSON_NO_RULE(it);

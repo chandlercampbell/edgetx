@@ -3,5 +3,7 @@
   ],
   "name": "PL18",
   "hats": true,
-  "stickDeadZone": true
+  "stickDeadZone": {
+    "dflt": 2
+  }
 }

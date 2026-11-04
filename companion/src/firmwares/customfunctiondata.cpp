@@ -40,7 +40,7 @@ void CustomFunctionData::convert(RadioDataConversionState & cstate)
 void CustomFunctionData::clear()
 {
   memset(reinterpret_cast<void *>(this), 0, sizeof(CustomFunctionData));
-  if (!getCurrentFirmware()->getCapability(SafetyChannelCustomFunction)) {
+  if (!getCurrentFirmware()->getCapability(Capability::SafetyChannelCustomFunction)) {
     func = FuncTrainer;
   }
 }
@@ -251,13 +251,13 @@ bool CustomFunctionData::isFuncAvailable(const int index, const ModelData * mode
   Firmware * fw = getCurrentFirmware();
   Board * bd = fw->getBoard();
 
-  bool ret = (((index >= FuncOverrideCH1 && index <= FuncOverrideCHLast) && !fw->getCapability(SafetyChannelCustomFunction)) ||
-        ((index == FuncPlayHaptic) && !fw->getCapability(Haptic)) ||
+  bool ret = (((index >= FuncOverrideCH1 && index <= FuncOverrideCHLast) && !fw->getCapability(Capability::SafetyChannelCustomFunction)) ||
+        ((index == FuncPlayHaptic) && !fw->getCapability(Capability::HasHaptic)) ||
         ((index >= FuncSetTimer1 && index <= FuncSetTimerLast) &&
-         (index > FuncSetTimer1 + fw->getCapability(Timers) ||
+         (index > FuncSetTimer1 + fw->getCapability(Capability::Timers) ||
          (model ? model->timers[index - FuncSetTimer1].isModeOff() : false))) ||
-        ((index >= FuncRangeCheckInternalModule && index <= FuncBindExternalModule) && !fw->getCapability(DangerousFunctions)) ||
-        ((index >= FuncAdjustGV1 && index <= FuncAdjustGVLast) && ((index - FuncAdjustGV1) >= fw->getCapability(Gvars))) ||
+        ((index >= FuncRangeCheckInternalModule && index <= FuncBindExternalModule) && !fw->getCapability(Capability::DangerousFunctions)) ||
+        ((index >= FuncAdjustGV1 && index <= FuncAdjustGVLast) && ((index - FuncAdjustGV1) >= fw->getCapability(Capability::Gvars))) ||
         ((index == FuncDisableAudioAmp && !fw->getCapability(Capability::HasAudioMuteGPIO))) ||
         ((index == FuncRGBLed && !(fw->getCapability(Capability::HasBlingLEDS) || fw->getCapability(Capability::FunctionSwitchColors)))) ||
         ((index == FuncLCDtoVideo && !fw->getCapability(Capability::HasLCDtoVideo))) ||
@@ -289,7 +289,7 @@ QString CustomFunctionData::resetToString(const int value, const ModelData * mod
   int step = CPN_MAX_TIMERS;
 
   if (value < step) {
-    if (value < firmware->getCapability(Timers))
+    if (value < firmware->getCapability(Capability::Timers))
       return RawSource(SOURCE_TYPE_TIMER, value + 1).toString(model);
     else
       return QString(CPN_STR_UNKNOWN_ITEM);
@@ -304,7 +304,7 @@ QString CustomFunctionData::resetToString(const int value, const ModelData * mod
   if (value < ++step)
     return tr("Trims");
 
-  if (value < step + firmware->getCapability(Sensors))
+  if (value < step + firmware->getCapability(Capability::Sensors))
     return RawSource(SOURCE_TYPE_TELEMETRY, 3 * (value - step) + 1).toString(model);
 
   return QString(CPN_STR_UNKNOWN_ITEM);
@@ -317,7 +317,7 @@ int CustomFunctionData::resetParamCount()
 {
   Firmware * firmware = getCurrentFirmware();
 
-  return RESET_SENSORS_START + firmware->getCapability(Sensors);
+  return RESET_SENSORS_START + firmware->getCapability(Capability::Sensors);
 }
 
 //  static
@@ -326,7 +326,7 @@ bool CustomFunctionData::isResetParamAvailable(const int index, const ModelData 
   Firmware * firmware = getCurrentFirmware();
 
   if (index < CPN_MAX_TIMERS) {
-    if (index < firmware->getCapability(Timers) && (model ? !model->timers[index].isModeOff() : true))
+    if (index < firmware->getCapability(Capability::Timers) && (model ? !model->timers[index].isModeOff() : true))
       return true;
     else
       return false;

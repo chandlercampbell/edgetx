@@ -3,5 +3,7 @@
   ],
   "name": "PL18EV",
   "hats": true,
-  "stickDeadZone": true
+  "stickDeadZone": {
+    "dflt": 2
+  }
 }

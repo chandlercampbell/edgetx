@@ -438,29 +438,26 @@ class Board
       // sourced from board definitions
       bool          auxSerialMode           {false};
       bool          aux2SerialMode          {false};
-      BatteryDefn   battery;
+      BatteryDefn   battery                 {60, 80, 65};
       BacklightDefn backlight;
-      Json::range_t backgroundVolume        {0, 0, 0};
-      std::string   bluetoothName           {"unknown"};
       bool          chargeWhileOn           {false};
-      Json::range_t contrast                {0, 0, 25};
+      Json::range_t contrast                {10, 45, 25};
       bool          externalAntenna         {false};
       bool          flySkyGimbals           {false};
       bool          hardwareAntennaSwitch   {false};
       bool          hats                    {false};
-      bool          imu                     {false};
       ModulesDefn   internalModules;
       ModulesDefn   externalModules;
-      bool          pwrButtonPress          {false};
-      bool          rotaryEncNav            {false};
-      Json::range_t speakerVolume           {0, 0, 0};
-      bool          stickDeadZone           {false};
+      bool          pwrButtonPress          {true};
+      bool          rotEncNav               {false};
+      bool          sdCard                  {true};
+      Json::range_t stickDeadZone           {0, 128, 0};
       bool          switchableJack          {false};
       bool          topLCD                  {false};
-      int           trainerModule           {Board::TR_MOD_TYPE_NONE};
+      bool          trainerModuleExtCCPM    {true};
+      bool          trainerModuleExtSBUS    {true};
       bool          vcpSerialMode           {false};
       bool          voiceControl            {false};
-      Json::range_t wavVolume               {0, 0, 0};
 
       HardwareDefn() = default;
     };

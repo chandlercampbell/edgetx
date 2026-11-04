@@ -16,6 +16,7 @@
   "board": "",
   "gitHubAsset": "",
   "simulator": "",
+  "bluetoothName": "unknown",
   "buildOpts": [
   ],
   "curves": {
@@ -59,13 +60,6 @@
     "comments": "h7 cnt: 15",
     "cnt": 9,
     "name": 3
-  },
-  "hatsMode": 2,
-  "inactivityTimer": {
-    "comments": "",
-    "min": 0,
-    "max": 99,
-    "dflt": 10
   },
   "inputs": {
     "comments": "",

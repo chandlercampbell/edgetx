@@ -117,7 +117,7 @@ ui(new Ui::GeneralSetup)
   populateVoiceLangCB(ui->voiceLang_CB, generalSettings.ttsLanguage);
   populateTextLangCB(ui->textLang_CB, generalSettings.uiLanguage, board->getCapability(Capability::HasColorLcd));
 
-  if (!firmware->getCapability(MavlinkTelemetry)) {
+  if (!firmware->getCapability(Capability::MavlinkTelemetry)) {
     ui->mavbaud_CB->hide();
     ui->mavbaud_label->hide();
   }
@@ -197,7 +197,7 @@ ui(new Ui::GeneralSetup)
     ui->label_KeysBl->hide();
   }
 
-  if (!firmware->getCapability(Haptic)) {
+  if (!firmware->getCapability(Capability::HasHaptic)) {
     ui->hapticStrength->setDisabled(true);
     ui->hapticmodeCB->setDisabled(true);
   }
@@ -281,7 +281,7 @@ ui(new Ui::GeneralSetup)
     ui->stickmodeCB->hide();
   }
 
-  if (!firmware->getCapability(HasVario)) {
+  if (!firmware->getCapability(Capability::HasVario)) {
     ui->varioVolume_label->hide();
     ui->varioVolume_SL->hide();
     ui->varioP0_label->hide();
@@ -537,7 +537,7 @@ void GeneralSetupPanel::setValues()
   ui->beeperCB->setCurrentIndex(generalSettings.beeperMode+2);
   ui->channelorderCB->setCurrentIndex(ui->channelorderCB->findData(generalSettings.templateSetup));
   ui->stickmodeCB->setCurrentIndex(ui->stickmodeCB->findData(generalSettings.stickMode));
-  if (firmware->getCapability(Haptic)) {
+  if (firmware->getCapability(Capability::HasHaptic)) {
     ui->hapticLengthCB->setCurrentIndex(generalSettings.hapticLength + 2);
   }
   else {

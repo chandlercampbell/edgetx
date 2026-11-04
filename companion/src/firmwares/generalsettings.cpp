@@ -197,21 +197,21 @@ void GeneralSettings::init()
   Firmware *firmware = getCurrentFirmware();
   Board *board = firmware->getBoard();
   board->getBatteryRange(vBatMin, vBatMax, vBatWarn);
-  strcpy(bluetoothName, board->getCapabilityStr(Capability::BluetoothName).toLatin1().constData());
+  strcpy(bluetoothName, firmware->getCapabilityStr(Capability::BluetoothName).toLatin1().constData());
   contrast = board->getCapability(Capability::ContrastDefault);
   backlightBright = board->getCapability(Capability::BacklightBright);
   backlightDelay = board->getCapability(Capability::BacklightDelay);
   backlightMode = board->getCapability(Capability::BacklightMode);
   backlightOffBright = board->getCapability(Capability::BacklightOffBright);
-  backgroundVolume = board->getCapability(Capability::BackgroundVolumeDefault);
-  speakerVolume = board->getCapability(Capability::SpeakerVolumeDefault);
-  wavVolume = board->getCapability(Capability::WavVolumeDefault);
-  hatsMode = firmware->getCapability(Capability::HatsModeDefault);
-  inactivityTimer = firmware->getCapability(Capability::InactivityTimerDefault);
+  backgroundVolume = 1;
+  hatsMode = HATSMODE_SWITCHABLE;
+  inactivityTimer = 10;
   internalModule = g.profile[g.sessionId()].defaultInternalModule();
   stickMode = g.profile[g.sessionId()].defaultMode();
-  templateSetup = g.profile[g.sessionId()].channelOrder();
+  speakerVolume = 0;
   stickDeadZone = board->getCapability(Capability::StickDeadZone);
+  templateSetup = g.profile[g.sessionId()].channelOrder();
+  wavVolume = 2;
 
   QString lang = g.profile[g.sessionId()].fwLanguage();
 

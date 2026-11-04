@@ -229,15 +229,9 @@ int Firmware::getCapability(Capability value) const
     case Capability::HasVarioSink:
       return getCapability(Capability::Air);
 
-    case Capability::HatsModeDefault:
-      return m_defn.hatsMode;
-
     case Capability::Heli:
       return !(opts.contains("noheli") ||
              m_board->getCapability(Capability::Surface));
-
-    case Capability::InactivityTimerDefault:
-      return m_defn.inactivityTimer.dflt;
 
     case Capability::InputsLength:
       return m_defn.inputs.name;
@@ -355,6 +349,9 @@ int Firmware::getCapability(Capability value) const
 QString Firmware::getCapabilityStr(Capability value) const
 {
   switch (value) {
+    case Capability::BluetoothName:
+      return m_defn.bluetoothName.c_str();
+
     case Capability::ModelImageFilters:
       return m_defn.modelImage.filters.c_str();
 
@@ -502,6 +499,9 @@ bool Firmware::loadDefinition(const QString & path)
     else if (it.key() == "simulator")
       m_defn.simulator = Json::valueStdString(it);
 
+    else if (it.key() == "bluetoothName")
+      m_defn.bluetoothName = Json::valueStdString(it, m_defn.bluetoothName);
+
     else if (it.key() == "buildOpts")
       loadBuildOptions(it);
 
@@ -531,12 +531,6 @@ bool Firmware::loadDefinition(const QString & path)
 
     else if (it.key() == "globalVars")
       Json::loadSizes(it, m_defn.globalVars, CPN_MAX_GVARS, GVAR_NAME_LEN);
-
-    else if (it.key() == "hatsMode")
-      m_defn.hatsMode = Json::valueInt(it, m_defn.hatsMode, 3);   // max = GeneralSettings::HATSMODE_GLOBAL
-
-    else if (it.key() == "inactivityTimer")
-      Json::loadRange(it, m_defn.inactivityTimer);
 
     else if (it.key() == "inputs")
       Json::loadSizes(it, m_defn.inputs, CPN_MAX_INPUTS, INPUT_NAME_LEN);

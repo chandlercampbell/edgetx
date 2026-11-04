@@ -11,15 +11,9 @@
   "hwdefn": "",
   "battery": {
     "comments": "",
-    "min": 0,
-    "max": 0,
-    "warn": 0
-  },
-  "backgroundVolume": {
-    "comments": "",
-    "min": 0,
-    "max": 99,
-    "dflt": 1
+    "min": 60,
+    "max": 80,
+    "warn": 65
   },
   "backlight": {
     "comments": "initialisation values",
@@ -30,18 +24,16 @@
     "offBrightness": 0,
     "onBrightness": 0
   },
-  "bluetoothName": "unknown",
   "chargeWhileOn": false,
   "contrast": {
     "comments": "b&w",
-    "min": 0,
-    "max": 100,
+    "min": 10,
+    "max": 45,
     "dflt": 25
   },
   "externalAntenna": false,
   "hardwareAntennaSwitch": false,
   "hats": false,
-  "imu": false,
   "modules": [
     {
       "internal": {
@@ -55,14 +47,18 @@
     },
     {
       "external": {
-        "comments": "available replaces size in modules refactor",
+        "comments": [
+          "available replaces size in modules refactor",
+          "afhds2a, afhds3",
+          "isrm, r9m, r9maccess, r9mlite, r9mliteaccess, r9mliteproaccess, xjt, xjtlite"
+        ],
         "size": "std",
         "available": [
           "crsf",
           "dsm2",
           "elrs",
           "ghost",
-          "lemon-dsmp",
+          "lemondsmp",
           "multi",
           "ppm",
           "sbus"
@@ -71,22 +67,18 @@
     }
   ],
   "pwrButtonPress": true,
-  "speakerVolume": {
-    "comments": "",
+  "rotEncNav": false,
+  "sdCard": true,
+  "stickDeadZone": {
+    "comments": "dflt values 0, 2, 4, 8, 16, 32, 64, 128",
     "min": 0,
-    "max": 99,
+    "max": 128,
     "dflt": 0
   },
-  "stickDeadZone": false,
   "switchableJack": false,
   "topLCD": false,
-  "trainerModule": "none",
+  "trainerModuleExtCCPM": true,
+  "trainerModuleExtSBUS": true,
   "vcpSerialMode": false,
-  "voiceControl": false,
-  "wavVolume": {
-    "comments": "",
-    "min": 0,
-    "max": 99,
-    "dflt": 2
-  }
+  "voiceControl": false
 }

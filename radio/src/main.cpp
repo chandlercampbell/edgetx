@@ -654,6 +654,10 @@ void perMain()
   if (modelSFEnabled())
     evalUIFunctions(g_model.customFn, modelFunctionsContext);
 
+#if LCD_W == 128
+  updateLcdInvert();
+#endif
+
 #if defined(GUI)
   DEBUG_TIMER_START(debugTimerGuiMain);
 #if defined(COLORLCD)

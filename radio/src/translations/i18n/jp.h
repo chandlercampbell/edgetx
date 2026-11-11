@@ -248,6 +248,7 @@
 #define TR_SF_RACING_MODE              "レースモード"
 #define TR_SF_DISABLE_TOUCH            "非タッチ"
 #define TR_SF_DISABLE_KEYS             "No Keys"
+#define TR_SF_INVERT_LCD               "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP        "オーディオアンプ OFF"
 #define TR_SF_SET_SCREEN               TR_BW_COL("画面設定", "メイン画面設定")
 #define TR_SF_PUSH_CUST_SWITCH         "Push CS"

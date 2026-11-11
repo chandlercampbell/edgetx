@@ -272,7 +272,7 @@ static const char* _writeScreenshot()
   }
 
 #if LCD_W == 128
-  pixel_t inv = g_eeGeneral.invertLCD ? 0xFF : 0;
+  pixel_t inv = isLcdInverted() ? 0xFF : 0;
 #endif
 
   for (int y=LCD_H-1; y>=0; y-=1) {

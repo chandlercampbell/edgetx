@@ -82,6 +82,11 @@ void preModelLoad()
   turnOffRGBLeds();
 #endif
 
+#if LCD_W == 128
+  modelFunctionsContext.activeUIFunctions &= ~(1u << FUNCTION_INVERT_LCD);
+  updateLcdInvert(true);
+#endif
+
   if (needDelay) {
     sleep_ms(200);
   }

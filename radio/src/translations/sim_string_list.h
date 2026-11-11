@@ -906,6 +906,7 @@
 #define STR_SF_FAILSAFE currentLangStrings->STR_SF_FAILSAFE
 #define STR_SF_HAPTIC currentLangStrings->STR_SF_HAPTIC
 #define STR_SF_INST_TRIM currentLangStrings->STR_SF_INST_TRIM
+#define STR_SF_INVERT_LCD currentLangStrings->STR_SF_INVERT_LCD
 #define STR_SF_LCD_TO_VIDEO currentLangStrings->STR_SF_LCD_TO_VIDEO
 #define STR_SF_LOGS currentLangStrings->STR_SF_LOGS
 #define STR_SF_MOD_BIND currentLangStrings->STR_SF_MOD_BIND

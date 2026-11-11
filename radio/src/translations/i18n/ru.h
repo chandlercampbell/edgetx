@@ -251,6 +251,7 @@
 #define TR_SF_RACING_MODE              "Режим гонка"
 #define TR_SF_DISABLE_TOUCH            "Сенсор вык"
 #define TR_SF_DISABLE_KEYS             "No Keys"
+#define TR_SF_INVERT_LCD               "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP        "Вык аудио усил."
 #define TR_SF_SET_SCREEN               TR_BW_COL("Устан экран", "Выбр глав экран")
 #define TR_SF_PUSH_CUST_SWITCH         "Нажать CS"

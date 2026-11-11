@@ -250,6 +250,7 @@
 #define TR_SF_RACING_MODE              "Режим перегонів"
 #define TR_SF_DISABLE_TOUCH            "Сенсор вимк."
 #define TR_SF_DISABLE_KEYS             "No Keys"
+#define TR_SF_INVERT_LCD               "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP        "Підсил. вимк."
 #define TR_SF_SET_SCREEN               TR_BW_COL("Set Screen", "Вибір гол. екр.")
 #define TR_SF_PUSH_CUST_SWITCH         "Push CS"

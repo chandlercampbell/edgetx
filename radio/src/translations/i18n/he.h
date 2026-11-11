@@ -251,6 +251,7 @@
 #define TR_SF_RACING_MODE              "מצב תחרות"
 #define TR_SF_DISABLE_TOUCH            "ללא מסך מגע"
 #define TR_SF_DISABLE_KEYS             "ללא מקשים"
+#define TR_SF_INVERT_LCD               "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP        "מגבר שמע כבוי"
 #define TR_SF_SET_SCREEN               TR_BW_COL("Set Screen", "הגדרת מסך ראשי")
 #define TR_SF_PUSH_CUST_SWITCH         "לחץ מתג מותאם"

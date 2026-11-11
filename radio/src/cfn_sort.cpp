@@ -62,6 +62,9 @@ Functions cfn_sorted[] = {
   /* 音量 */ FUNC_VOLUME,
   /* 暂停背景音乐 */ FUNC_BACKGND_MUSIC_PAUSE,
   /* 振动 */ FUNC_HAPTIC,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
   /* LUA脚本 */ FUNC_PLAY_SCRIPT,
 #if defined(KEYS_LOCK_KEY1) && defined(KEYS_LOCK_KEY2)
   /* No Keys */ FUNC_DISABLE_KEYS,
@@ -81,6 +84,9 @@ Functions cfn_sorted[] = {
   /* Hudba */ FUNC_BACKGND_MUSIC,
   /* Hudba pauza */ FUNC_BACKGND_MUSIC_PAUSE,
   /* Instantní trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if OLED_SCREEN
   /* Jas */ FUNC_BACKLIGHT,
 #endif
@@ -129,6 +135,9 @@ Functions cfn_sorted[] = {
 #if defined(COLORLCD)
   /* Ikke berøringsaktiv */ FUNC_DISABLE_TOUCH,
 #endif
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
   /* Juster */ FUNC_ADJUST_GVAR,
 #if defined(VIDEO_SWITCH)
   /* LCD til Video */ FUNC_LCD_TO_VIDEO,
@@ -173,6 +182,9 @@ Functions cfn_sorted[] = {
   /* Helligkeit */ FUNC_BACKLIGHT,
 #endif
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(COLORLCD)
   /* Kein Touch */ FUNC_DISABLE_TOUCH,
 #endif
@@ -225,6 +237,9 @@ Functions cfn_sorted[] = {
   /* Failsafe */ FUNC_SET_FAILSAFE,
   /* Haptic */ FUNC_HAPTIC,
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD to Video */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -265,6 +280,9 @@ Functions cfn_sorted[] = {
   /* BgMusic || */ FUNC_BACKGND_MUSIC_PAUSE,
   /* Haptic */ FUNC_HAPTIC,
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if OLED_SCREEN
   /* Kirkkaus */ FUNC_BACKLIGHT,
 #endif
@@ -309,6 +327,9 @@ Functions cfn_sorted[] = {
   /* Désact. Ampli Audio */ FUNC_DISABLE_AUDIO_AMP,
   /* Écolage */ FUNC_TRAINER,
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
   /* Jouer fichier */ FUNC_PLAY_TRACK,
   /* Jouer son */ FUNC_PLAY_SOUND,
 #if defined(VIDEO_SWITCH)
@@ -348,6 +369,9 @@ Functions cfn_sorted[] = {
   /* Vibreur */ FUNC_HAPTIC,
   /* Volume */ FUNC_VOLUME,
 #elif defined(TRANSLATIONS_HE)
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if !OLED_SCREEN
   /* אור אחורי */ FUNC_BACKLIGHT,
 #endif
@@ -402,6 +426,9 @@ Functions cfn_sorted[] = {
 #endif
   /* Ignora */ FUNC_OVERRIDE_CHANNEL,
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD su video */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -445,6 +472,9 @@ Functions cfn_sorted[] = {
   /* Failsafe設定 */ FUNC_SET_FAILSAFE,
   /* G変数修正 */ FUNC_ADJUST_GVAR,
   /* Inst.トリム */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD to Video */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -486,6 +516,9 @@ Functions cfn_sorted[] = {
   /* 非タッチ */ FUNC_DISABLE_TOUCH,
 #endif
 #elif defined(TRANSLATIONS_KO)
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD -> 비디오 출력 */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -544,6 +577,9 @@ Functions cfn_sorted[] = {
   /* Helderheid */ FUNC_BACKLIGHT,
 #endif
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD to Video */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -584,6 +620,9 @@ Functions cfn_sorted[] = {
   /* GrajŚcieżk */ FUNC_PLAY_TRACK,
   /* GrajWartoś */ FUNC_PLAY_VALUE,
   /* Inst-Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if OLED_SCREEN
   /* Jasność */ FUNC_BACKLIGHT,
 #endif
@@ -636,6 +675,9 @@ Functions cfn_sorted[] = {
   /* DefFailsafe */ FUNC_SET_FAILSAFE,
   /* Definir */ FUNC_SET_TIMER,
   /* Def Tela Princ */ FUNC_SET_SCREEN,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD to Video */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -671,6 +713,9 @@ Functions cfn_sorted[] = {
   /* Volume */ FUNC_VOLUME,
 #elif defined(TRANSLATIONS_RU)
   /* Bind модуль */ FUNC_BIND,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD в видео */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -724,6 +769,9 @@ Functions cfn_sorted[] = {
   /* Ej pekskärm */ FUNC_DISABLE_TOUCH,
 #endif
   /* Haptisk */ FUNC_HAPTIC,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
   /* Justera */ FUNC_ADJUST_GVAR,
 #if defined(VIDEO_SWITCH)
   /* LCD till Video */ FUNC_LCD_TO_VIDEO,
@@ -772,6 +820,9 @@ Functions cfn_sorted[] = {
   /* Hlásiť stav */ FUNC_PLAY_VALUE,
   /* Hudba */ FUNC_BACKGND_MUSIC,
   /* Hudba pauza */ FUNC_BACKGND_MUSIC_PAUSE,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if OLED_SCREEN
   /* Jas */ FUNC_BACKLIGHT,
 #endif
@@ -808,6 +859,9 @@ Functions cfn_sorted[] = {
   /* Zámok */ FUNC_OVERRIDE_CHANNEL,
   /* Zmena */ FUNC_SET_TIMER,
 #elif defined(TRANSLATIONS_TW)
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
   /* Lua腳本 */ FUNC_PLAY_SCRIPT,
 #if defined(KEYS_LOCK_KEY1) && defined(KEYS_LOCK_KEY2)
   /* No Keys */ FUNC_DISABLE_KEYS,
@@ -887,6 +941,9 @@ Functions cfn_sorted[] = {
 #if OLED_SCREEN
   /* Яскравість */ FUNC_BACKLIGHT,
 #endif
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD to Video */ FUNC_LCD_TO_VIDEO,
 #endif
@@ -912,6 +969,9 @@ Functions cfn_sorted[] = {
 #endif
   /* Haptic */ FUNC_HAPTIC,
   /* Instant Trim */ FUNC_INSTANT_TRIM,
+#if LCD_W == 128
+  /* Invert LCD */ FUNC_INVERT_LCD,
+#endif
 #if defined(VIDEO_SWITCH)
   /* LCD to Video */ FUNC_LCD_TO_VIDEO,
 #endif

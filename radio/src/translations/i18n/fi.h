@@ -248,6 +248,7 @@
 #define TR_SF_RACING_MODE              "Racing Mode"
 #define TR_SF_DISABLE_TOUCH            "No Touch"
 #define TR_SF_DISABLE_KEYS             "No Keys"
+#define TR_SF_INVERT_LCD               "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP        "Audio Amp Off"
 #define TR_SF_SET_SCREEN               TR_BW_COL("Set Screen", "Set Main Screen")
 #define TR_SF_PUSH_CUST_SWITCH         "Push CS"

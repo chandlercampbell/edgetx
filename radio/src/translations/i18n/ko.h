@@ -248,6 +248,7 @@
 #define TR_SF_RACING_MODE             "레이싱 모드"
 #define TR_SF_DISABLE_TOUCH           "터치 비활성화"
 #define TR_SF_DISABLE_KEYS            "No Keys"
+#define TR_SF_INVERT_LCD              "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP       "오디오 앰프 끄기"
 #define TR_SF_SET_SCREEN              TR_BW_COL("텔레 화면 설정", "메인 화면 설정")
 #define TR_SF_PUSH_CUST_SWITCH        "커스텀 스위치 실행"

@@ -169,6 +169,27 @@ bool isRepeatDelayElapsed(const CustomFunctionData * functions, CustomFunctionsC
   }
 }
 
+#if LCD_W == 128
+// State last sent to the LCD controller
+static bool lcdInverted = false;
+
+bool isLcdInverted()
+{
+  return lcdInverted;
+}
+
+// The 'Invert LCD' function flips the screen relative to the radio setting
+// while it is active
+void updateLcdInvert(bool force)
+{
+  bool invert = g_eeGeneral.invertLCD != isFunctionActive(FUNCTION_INVERT_LCD);
+  if (force || invert != lcdInverted) {
+    lcdInverted = invert;
+    lcdSetInvert(invert);
+  }
+}
+#endif
+
 static bool isUIFunction(uint16_t f, int16_t p)
 {
   return f == FUNC_LOGS || f == FUNC_SET_SCREEN || f == FUNC_SCREENSHOT || f == FUNC_BACKLIGHT
@@ -180,6 +201,9 @@ static bool isUIFunction(uint16_t f, int16_t p)
 #endif
 #if defined(KEYS_LOCK_KEY1) && defined(KEYS_LOCK_KEY2)
           || f == FUNC_DISABLE_KEYS
+#endif
+#if LCD_W == 128
+          || f == FUNC_INVERT_LCD
 #endif
           || (f == FUNC_RESET && p == FUNC_RESET_FLIGHT);
 }
@@ -585,6 +609,13 @@ void evalUIFunctions(CustomFunctionData * functions, CustomFunctionsContext & fu
           }
 #endif
 
+#if LCD_W == 128
+          case FUNC_INVERT_LCD:
+            // applied by updateLcdInvert() once all functions are evaluated
+            newActiveFunctions |= (1u << FUNCTION_INVERT_LCD);
+            break;
+#endif
+
           default:
             break;
         }
@@ -697,6 +728,10 @@ const char* funcGetLabel(uint8_t func)
 #if defined(KEYS_LOCK_KEY1) && defined(KEYS_LOCK_KEY2)
   case FUNC_DISABLE_KEYS:
     return STR_SF_DISABLE_KEYS;
+#endif
+#if LCD_W == 128
+  case FUNC_INVERT_LCD:
+    return STR_SF_INVERT_LCD;
 #endif
   case FUNC_SET_SCREEN:
     return STR_SF_SET_SCREEN;

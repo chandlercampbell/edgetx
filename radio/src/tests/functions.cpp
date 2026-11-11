@@ -132,3 +132,55 @@ TEST_F(SpecialFunctionsTest, GvarsInc)
   EXPECT_EQ(g_model.flightModeData[0].gvars[0], 28);
 }
 #endif // #if defined(GVARS)
+
+#if LCD_W == 128
+TEST_F(SpecialFunctionsTest, InvertLcd)
+{
+  int sw = findHwSwitch(SWITCH_3POS);
+  if (sw < 0) return;
+  int swPos = (sw * 3) + SWSRC_FIRST_SWITCH;
+
+  modelFunctionsContext.reset();
+  g_eeGeneral.invertLCD = 0;
+  updateLcdInvert(true);
+  EXPECT_FALSE(isLcdInverted());
+
+  g_model.customFn[0].swtch = swPos;
+  g_model.customFn[0].func = FUNC_INVERT_LCD;
+  g_model.customFn[0].active = true;
+
+  // switch off: radio setting is used
+  simuSetSwitch(sw, 0);
+  evalUIFunctions(g_model.customFn, modelFunctionsContext);
+  updateLcdInvert();
+  EXPECT_FALSE(isLcdInverted());
+
+  // switch on: opposite of the radio setting
+  simuSetSwitch(sw, -1);
+  evalUIFunctions(g_model.customFn, modelFunctionsContext);
+  updateLcdInvert();
+  EXPECT_TRUE(isLcdInverted());
+
+  g_eeGeneral.invertLCD = 1;
+  updateLcdInvert();
+  EXPECT_FALSE(isLcdInverted());
+
+  // switch off again: back to the radio setting
+  simuSetSwitch(sw, 0);
+  evalUIFunctions(g_model.customFn, modelFunctionsContext);
+  updateLcdInvert();
+  EXPECT_TRUE(isLcdInverted());
+
+  // unloading the model restores the radio setting
+  simuSetSwitch(sw, -1);
+  evalUIFunctions(g_model.customFn, modelFunctionsContext);
+  updateLcdInvert();
+  EXPECT_FALSE(isLcdInverted());
+  preModelLoad();
+  EXPECT_TRUE(isLcdInverted());
+
+  g_eeGeneral.invertLCD = 0;
+  updateLcdInvert(true);
+  modelFunctionsContext.reset();
+}
+#endif

@@ -647,7 +647,7 @@ void menuRadioHardware(event_t event)
           bool inv = g_eeGeneral.invertLCD;
           g_eeGeneral.invertLCD = editCheckBox(g_eeGeneral.invertLCD, HW_SETTINGS_COLUMN2, y, nullptr, attr, event);
           if (inv != g_eeGeneral.invertLCD)
-            lcdSetInvert(g_eeGeneral.invertLCD);
+            updateLcdInvert();
         }
         break;
 #endif

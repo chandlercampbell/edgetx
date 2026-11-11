@@ -251,6 +251,7 @@
 #define TR_SF_RACING_MODE               "Tävlingsläge"
 #define TR_SF_DISABLE_TOUCH             "Ej pekskärm"
 #define TR_SF_DISABLE_KEYS              "No Keys"
+#define TR_SF_INVERT_LCD                "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP         TR("Audioförst. av","Audioförstärkare av")
 #define TR_SF_SET_SCREEN                TR_BW_COL("Visa skärm", "Sätt huvudskärm")
 #define TR_SF_PUSH_CUST_SWITCH          "Tryck CS"

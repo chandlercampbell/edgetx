@@ -446,6 +446,7 @@ enum FunctionsActive {
   FUNCTION_DISABLE_AUDIO_AMP,
   FUNCTION_VOLUME,
   FUNCTION_DISABLE_KEYS,
+  FUNCTION_INVERT_LCD,
 };
 
 #define VARIO_FREQUENCY_ZERO   700/*Hz*/
@@ -461,6 +462,10 @@ inline bool isFunctionActive(uint8_t func)
 }
 void evalFunctions(CustomFunctionData * functions, CustomFunctionsContext & functionsContext);
 void evalUIFunctions(CustomFunctionData * functions, CustomFunctionsContext & functionsContext);
+#if LCD_W == 128
+bool isLcdInverted();
+void updateLcdInvert(bool force = false);
+#endif
 inline void customFunctionsReset()
 {
   globalFunctionsContext.reset();

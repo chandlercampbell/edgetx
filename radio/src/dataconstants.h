@@ -780,6 +780,9 @@ enum Functions {
   FUNC_PUSH_CUST_SWITCH,
 #endif
   FUNC_DISABLE_KEYS,
+#if LCD_W == 128 || defined(CFN_ONLY)
+  FUNC_INVERT_LCD,
+#endif
   FUNC_TEST, // MUST remain last
 #if defined(DEBUG)
   FUNC_MAX SKIP

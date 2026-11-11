@@ -249,6 +249,7 @@
 #define TR_SF_RACING_MODE              "Pretekársky režim"
 #define TR_SF_DISABLE_TOUCH            "Deaktivácia dotyku"
 #define TR_SF_DISABLE_KEYS             "Deaktivácia klávesov"
+#define TR_SF_INVERT_LCD               "Invert LCD"
 #define TR_SF_DISABLE_AUDIO_AMP        "Vypnutie zosilňovača zvuku"
 #define TR_SF_SET_SCREEN               TR_BW_COL("Nast obrazovku", "Vybrať hlavnú obrazovku")
 #define TR_SF_PUSH_CUST_SWITCH         "Stlač CS"

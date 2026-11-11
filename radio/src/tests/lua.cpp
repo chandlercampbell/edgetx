@@ -552,6 +552,29 @@ TEST(Lua, TouchEnabled)
 #endif
 }
 
+TEST(Lua, LcdInvert)
+{
+#if LCD_W == 128
+  const uint8_t savedInvert = g_eeGeneral.invertLCD;
+
+  luaExecStr("lcd.setInvert(true)");
+  EXPECT_EQ(g_eeGeneral.invertLCD, 1);
+  luaExecStr("assert(lcd.getInvert() == true)");
+
+  luaExecStr("lcd.setInvert(false)");
+  EXPECT_EQ(g_eeGeneral.invertLCD, 0);
+  luaExecStr("assert(lcd.getInvert() == false)");
+
+  luaExecStr("assert(not pcall(lcd.setInvert))");
+  luaExecStr("assert(not pcall(lcd.setInvert, 1))");
+
+  g_eeGeneral.invertLCD = savedInvert;
+#elif !defined(COLORLCD)
+  luaExecStr("assert(lcd.setInvert == nil)");
+  luaExecStr("assert(lcd.getInvert == nil)");
+#endif
+}
+
 TEST(Lua, testLegacyNames)
 {
   MODEL_RESET();

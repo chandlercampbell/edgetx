@@ -76,6 +76,51 @@ static int luaLcdResetBacklightTimeout(lua_State * L)
   return 0;
 }
 
+#if LCD_W == 128
+/*luadoc
+@function lcd.setInvert(value)
+
+Invert the LCD screen colors (white on black). This is the same setting as
+"Invert" in the radio hardware settings, and is saved with the radio settings.
+
+@param value (boolean) `true` to invert the screen, `false` for normal display
+
+@status current Introduced in 3.0.0
+
+@notice This function is only available on radios with a 128x64 black and
+white screen.
+*/
+static int luaLcdSetInvert(lua_State * L)
+{
+  luaL_checktype(L, 1, LUA_TBOOLEAN);
+  bool invert = lua_toboolean(L, 1);
+  if (g_eeGeneral.invertLCD != invert) {
+    g_eeGeneral.invertLCD = invert;
+    lcdSetInvert(invert);
+    storageDirty(EE_GENERAL);
+  }
+  return 0;
+}
+
+/*luadoc
+@function lcd.getInvert()
+
+Return whether the LCD screen colors are inverted
+
+@retval boolean `true` when the screen is inverted, `false` otherwise
+
+@status current Introduced in 3.0.0
+
+@notice This function is only available on radios with a 128x64 black and
+white screen.
+*/
+static int luaLcdGetInvert(lua_State * L)
+{
+  lua_pushboolean(L, g_eeGeneral.invertLCD);
+  return 1;
+}
+#endif
+
 /*luadoc
 @function lcd.drawPoint(x, y)
 
@@ -631,6 +676,10 @@ LROT_BEGIN(lcdlib, NULL, 0)
   LROT_FUNCENTRY( refresh, luaLcdRefresh )
   LROT_FUNCENTRY( clear, luaLcdClear )
   LROT_FUNCENTRY( resetBacklightTimeout, luaLcdResetBacklightTimeout )
+#if LCD_W == 128
+  LROT_FUNCENTRY( setInvert, luaLcdSetInvert )
+  LROT_FUNCENTRY( getInvert, luaLcdGetInvert )
+#endif
   LROT_FUNCENTRY( drawPoint, luaLcdDrawPoint )
   LROT_FUNCENTRY( drawLine, luaLcdDrawLine )
   LROT_FUNCENTRY( drawRectangle, luaLcdDrawRectangle )
